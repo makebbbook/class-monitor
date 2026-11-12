@@ -98,7 +98,7 @@ main{padding:18px 20px}
 </div></div>
 
 <script>
-const MAX=15, KEY='classMonitor.v1', LOGKEY='classMonitor.log.'+new Date().toLocaleDateString('sv');
+const MAX=16, KEY='classMonitor.v1', LOGKEY='classMonitor.log.'+new Date().toLocaleDateString('sv');
 let tabs=[], soundOn=true, logs=[];
 const status={}; // i -> {alive, since}
 const $=id=>document.getElementById(id);
@@ -106,6 +106,7 @@ const $=id=>document.getElementById(id);
 function load(){
   try{const s=JSON.parse(localStorage.getItem(KEY)||'null');if(s&&Array.isArray(s.tabs)){tabs=s.tabs;$('cols').value=s.cols||'5';soundOn=s.sound!==false;}}catch(e){}
   if(!tabs.length)tabs=Array.from({length:MAX},()=>({ip:'',port:'8080'}));
+  while(tabs.length<MAX)tabs.push({ip:'',port:'8080'});
   try{logs=JSON.parse(localStorage.getItem(LOGKEY)||'[]')}catch(e){logs=[]}
   paintSound();
 }
